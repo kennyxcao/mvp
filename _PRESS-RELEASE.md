@@ -17,9 +17,11 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
+  > Rate My Beer
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
 ## Sub-Heading ##
+  > All the beer lover who wants to keep track of the beer they've drank and how they like it.
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
 
 ## Summary ##
