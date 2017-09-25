@@ -1,0 +1,19 @@
+{
+  "name": "hrsf82-mvp",
+  "version": "1.0.0",
+  "description": "Rate My Beer - MVP Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kennyxcao/hrsf82-mvp.git"
+  },
+  "author": "Kenny Cao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kennyxcao/hrsf82-mvp/issues"
+  },
+  "homepage": "https://github.com/kennyxcao/hrsf82-mvp#readme"
+}
