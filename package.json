@@ -5,13 +5,13 @@
   "main": "index.js",
   "engines": {
     "node": "6.11.1"
-  },  
+  },
   "scripts": {
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "lint": "eslint ./",
     "start": "node server/index.js",
-    "start-babel": "babel-node server.js",        
+    "start-babel": "babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
   },
   "dependencies": {
+    "beeradvocate-api": "0.0.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.2",
     "express": "^4.15.0",
@@ -41,5 +42,5 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "request": "^2.81.0"
-  }  
+  }
 }
