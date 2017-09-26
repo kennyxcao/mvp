@@ -4,7 +4,7 @@ import $ from 'jquery';
 import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
 import RateBeer from './components/RateBeer.jsx';
-
+import _ from 'lodash';
 
 class App extends React.Component {
   constructor(props) {

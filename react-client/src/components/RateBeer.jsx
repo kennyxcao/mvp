@@ -59,21 +59,6 @@ class RateBeer extends React.Component {
   }
 }
 
-// const Login = (props) => (
-//   <div className='login'>
-//     <h4>Login Page</h4>
-//     {props.loggedIn ? null :
-//       <form onSubmit={props.handleLogin}>
-//         <label htmlFor="username">Username:</label>
-//         <input id="username" type="text" ref="username" />
-//         <label htmlFor="password">Password:</label>
-//         <input id="password" type="password" ref="password" />
-//         <input id="loginSubmit" type="submit"/>
-//       </form>
-//     }
-//   </div>
-// );
-
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated

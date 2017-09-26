@@ -26,6 +26,22 @@ app.post('/login', (req, res) => {
     });
 });
 
+app.get('/user', (req, res) => {
+
+});
+
+
+app.get('/beer', (req, res) => {
+
+});
+
+
+app.post('/beer', (req, res) => {
+
+});
+
+
+
 
 app.get('/items', (req, res) => {
   ba.beerPage('/beer/profile/16333/54413/', function(beers) {
