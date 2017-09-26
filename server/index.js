@@ -28,17 +28,23 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
-  console.log('userrrrrrrrrrrr');
   const name = req.query.user;
 
   db.User.findOne({name}).exec()
     .then(userData => {
+      userData.beerList.reverse();
       res.status(200).json(userData.beerList);
     })
     .catch(error => {
       res.status(404).send();
     });
 });
+
+app.get('/topbeer', (req, res) => {
+
+});
+
+
 
 app.get('/beer', (req, res) => {
   console.log(req.query);

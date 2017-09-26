@@ -18,6 +18,19 @@ class RateBeer extends React.Component {
     this.handleRatingChange = this.handleRatingChange.bind(this);
     this.handleCommentChange = this.handleCommentChange.bind(this);
     this.handleSelectBeer = this.handleSelectBeer.bind(this);
+    this.resetState = this.resetState.bind(this);
+  }
+
+  resetState () {
+    this.setState({
+      beername: '',
+      location: '',
+      rating: '',    
+      comment: '',
+      noResult: false,
+      fetched: false,
+      beerList: []      
+    });
   }
 
   handleBeernameChange (e) {
@@ -61,9 +74,9 @@ class RateBeer extends React.Component {
     });     
   }
 
-  handleSelectBeer (e) {
-    console.log(e.target.value);
+  handleSelectBeer (e) {        
     const selectedBeer = this.state.beerList[e.target.value];
+    if (!selectedBeer) { return; }
     this.props.handleRateBeer({
       name: selectedBeer.beer_name,
       brewery: selectedBeer.brewery_name,
@@ -73,6 +86,7 @@ class RateBeer extends React.Component {
       rating: this.state.rating, 
       comment: this.state.comment}
     );
+    this.resetState();
   }
 
   render() {
