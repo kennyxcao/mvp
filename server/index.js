@@ -1,11 +1,13 @@
-var express = require('express');
-var db = require('../database-mongo/index');
-var bodyParser = require('body-parser');
-var ba = require('beeradvocate-api');
+const express = require('express');
+const db = require('../database-mongo/index');
+const bodyParser = require('body-parser');
+const querystring = require('querystring');
+
+const ba = require('beeradvocate-api');
 
 const Promise = require('bluebird');
 
-var app = express();
+const app = express();
 
 app.use(bodyParser.json());
 
@@ -36,7 +38,11 @@ app.post('/user', (req, res) => {
 
 
 app.get('/beer', (req, res) => {
-
+  console.log(req.query);
+  const beername = req.query.name;
+  ba.beerSearch(beername, (beers) => {
+    res.status(200).send(beers);
+  });
 });
 
 
@@ -54,7 +60,7 @@ app.post('/beer', (req, res) => {
         if (!result) {
           throw result;
         }
-        let newAvgRating = (result.avgRating * result.count + data.rating) / (result.count + 1);
+        let newAvgRating = (result.avgRating * result.count + +data.rating) / (result.count + 1);
         let newCount = result.count++;
         return db.Beer.update({name: beer.beer_name, brewery: beer.brewery_name}, { $set: { avgRating: newAvgRating, count: newCount}}).exec();
       })

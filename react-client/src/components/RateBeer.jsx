@@ -7,13 +7,17 @@ class RateBeer extends React.Component {
       beername: '',
       location: '',
       rating: '',    
-      comment: ''
+      comment: '',
+      noResult: false,
+      fetched: false,
+      beerList: []
     };
     this.getBeerData = this.getBeerData.bind(this);
     this.handleBeernameChange = this.handleBeernameChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleRatingChange = this.handleRatingChange.bind(this);
     this.handleCommentChange = this.handleCommentChange.bind(this);
+    this.handleSelectBeer = this.handleSelectBeer.bind(this);
   }
 
   handleBeernameChange (e) {
@@ -33,12 +37,39 @@ class RateBeer extends React.Component {
   }
 
   getBeerData (e) {
-    this.props.handleRateBeer({
-      name: this.state.beername, 
-      location: this.state.location, 
-      rating: this.state.rating, 
-      comment: this.state.comment}
-    );
+    $.ajax({
+      type: 'GET',      
+      url: '/beer', 
+      data: {name: this.state.beername},
+      dataType: 'json',
+      success: (data) => {
+        console.log('Sucessiful Fetch Beer Data');
+        console.log(data);
+        if (data.length === 0) {
+          this.setState({noResult: true});
+        } else {
+          this.setState({
+            noResult: false,
+            fetched: true,
+            beerList: data
+          });
+        }
+
+      },
+      error: (err) => {
+        console.error('Fetch Beer Data Failed ', err);
+      }
+    });     
+    // this.props.handleRateBeer({
+    //   name: this.state.beername, 
+    //   location: this.state.location, 
+    //   rating: this.state.rating, 
+    //   comment: this.state.comment}
+    // );
+  }
+
+  handleSelectBeer (e) {
+    console.log(e.target.value);
   }
 
   render() {
@@ -66,6 +97,15 @@ class RateBeer extends React.Component {
             </div>
             <button type="button" className="btn btn-primary" onClick={this.getBeerData}>Submit</button>
           </form>
+          {this.state.noResult ? <h5 className="notFound">Sorry no match found</h5> : null}
+          {!this.state.fetched ? null :   
+            <div className="form-group">
+              <label htmlFor="selectBeer">Select one of the following matching results</label>
+                <select className="form-control" defaultValue="" id="selectBeer" onChange={this.handleSelectBeer}>
+                  <option value="" disabled hidden>Choose here</option>
+                  {this.state.beerList.map((beer, i) => <option key={i} value={i}>{beer.beer_name}, {beer.brewery_name} -- {beer.brewery_location}</option>)}
+                </select>
+            </div>}
         </div>
       }
   </div>);
