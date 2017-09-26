@@ -7,7 +7,8 @@ const UserBeerListItem = (props) => (
     <td>{props.beer.breweryLocation}</td>
     <td>{props.beer.rating}</td>
     <td>{props.beer.location}</td>
-    <td>{props.beer.comment}</td>    
+    <td>{props.beer.comment}</td>
+    <td>{moment(new Date(props.beer.updatedAt)).fromNow()}</td>  
   </tr>
 );
 

@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use('/js', express.static(__dirname + '/../node_modules/bootstrap/dist/js'));  // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/../node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/../node_modules/moment')); // redirect JS Moment
 app.use('/css', express.static(__dirname + '/../node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 app.use('/css', express.static(__dirname + '/../react-client/dist/css')); // redirect custom css file
 
@@ -41,7 +42,16 @@ app.get('/user', (req, res) => {
 });
 
 app.get('/topbeer', (req, res) => {
+  console.log(req.query);
+  const sortBy = req.query.sortBy;
 
+  db.Beer.find()
+    .sort('-' + sortBy)
+    .limit(25)
+    .exec((err, topBeers) => {
+      if (err) { console.error(err); }
+      res.json(topBeers);
+    });
 });
 
 

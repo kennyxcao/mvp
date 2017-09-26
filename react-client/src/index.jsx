@@ -5,6 +5,7 @@ import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
 import RateBeer from './components/RateBeer.jsx';
 import UserBeerList from './components/UserBeerList.jsx';
+import TopBeerList from './components/TopBeerList.jsx';
 import _ from 'lodash';
 
 class App extends React.Component {
@@ -14,27 +15,38 @@ class App extends React.Component {
       loggedIn: false,
       user: '',
       userBeers: [],
-      topRatedBeer: []
+      topBeers: []
     };
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleRateBeer = this.handleRateBeer.bind(this);
     this.fetchUserBeer = this.fetchUserBeer.bind(this);
+    this.handleTopBeerFetch = this.handleTopBeerFetch.bind(this);
   }
 
   componentDidMount() {
-    // $.ajax({
-    //   url: '/items', 
-    //   success: (data) => {
-    //     this.setState({
-    //       items: data
-    //     });
-    //   },
-    //   error: (err) => {
-    //     console.log('err', err);
-    //   }
-    // });
+    this.handleTopBeerFetch();
+  }
+
+  handleTopBeerFetch (e) {
+    //console.log(e.target.value);
+    $.ajax({
+      type: 'GET',      
+      url: '/topbeer', 
+      data: {sortBy: 'avgRating'},
+      dataType: 'json',
+      success: (data) => {
+        console.log('Sucessiful Fetch Top Beer Data');
+        console.log(data);
+        this.setState({
+          topBeers: data
+        });
+      },
+      error: (err) => {
+        console.error('Fetch Top Beer Data Failed ', err);
+      }
+    }); 
   }
 
   handleLogin (info) {
@@ -117,6 +129,9 @@ class App extends React.Component {
       </div>
       <div className="col-md-12">
         <UserBeerList loggedIn={this.state.loggedIn} userBeers={this.state.userBeers}/>
+      </div>
+      <div className="col-md-12">
+        <TopBeerList topBeers={this.state.topBeers} handleTopBeerFetch={this.handleTopBeerFetch}/>
       </div>      
     </div>);
   }

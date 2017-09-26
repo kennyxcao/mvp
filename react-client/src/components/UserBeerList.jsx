@@ -6,7 +6,7 @@ const UserBeerList = (props) => (
     {!props.loggedIn ? null :
       <div className='userBeerList'>
         <h4>Your've rated { props.userBeers.length } Beer</h4>  
-        <table className="table table-hover">
+        <table className="table table-hover user-beer">
           <thead className="thead-default">
             <tr>
               <th>Beer Name</th>
@@ -14,7 +14,8 @@ const UserBeerList = (props) => (
               <th>Brewery Location</th>
               <th>Your Rating</th>
               <th>Location</th>
-              <th>Comment</th>            
+              <th>Comment</th> 
+              <th>Updated</th>           
             </tr>
           </thead>
           <tbody>
