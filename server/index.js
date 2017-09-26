@@ -17,7 +17,6 @@ app.use('/js', express.static(__dirname + '/../node_modules/jquery/dist')); // r
 app.use('/css', express.static(__dirname + '/../node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 app.use('/css', express.static(__dirname + '/../react-client/dist/css')); // redirect custom css file
 
-
 app.post('/login', (req, res) => {
   // Check user login data with User collection
   const query = req.body;
@@ -29,13 +28,17 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
+  console.log('userrrrrrrrrrrr');
+  const name = req.query.user;
 
+  db.User.findOne({name}).exec()
+    .then(userData => {
+      res.status(200).json(userData.beerList);
+    })
+    .catch(error => {
+      res.status(404).send();
+    });
 });
-
-app.post('/user', (req, res) => {
-
-});
-
 
 app.get('/beer', (req, res) => {
   console.log(req.query);
@@ -133,19 +136,6 @@ app.post('/beer', (req, res) => {
 });
 
 
-app.get('/items', (req, res) => {
-  ba.beerPage('/beer/profile/16333/54413/', function(beers) {
-    console.log(beers);
-    res.json(beers);
-  });
-  // items.selectAll(function(err, data) {
-  //   if (err) {
-  //     res.sendStatus(500);
-  //   } else {
-  //     res.json(data);
-  //   }
-  // });
-});
 
 app.listen(3000, () => {
   console.log('listening on port 3000!');

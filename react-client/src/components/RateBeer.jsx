@@ -54,7 +54,6 @@ class RateBeer extends React.Component {
             beerList: data
           });
         }
-
       },
       error: (err) => {
         console.error('Fetch Beer Data Failed ', err);

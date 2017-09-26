@@ -4,6 +4,7 @@ import $ from 'jquery';
 import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
 import RateBeer from './components/RateBeer.jsx';
+import UserBeerList from './components/UserBeerList.jsx';
 import _ from 'lodash';
 
 class App extends React.Component {
@@ -19,6 +20,7 @@ class App extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleRateBeer = this.handleRateBeer.bind(this);
+    this.fetchUserBeer = this.fetchUserBeer.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +51,7 @@ class App extends React.Component {
           loggedIn: true,
           user: data.name
         });
+        this.fetchUserBeer();
       },
       error: (err) => {
         console.error('Login Failed', err);
@@ -73,16 +76,31 @@ class App extends React.Component {
       contentType: 'application/json',
       success: (data) => {
         console.log('Sucessiful Submit Beer Data');
-        console.log(data);
-        // this.setState({
-        //   fetched: true,
-        //   beerChoices: data
-        // });
+        this.fetchUserBeer();
       },
       error: (err) => {
         console.error('Submit Beer Data Failed ', err);
       }
     }); 
+  }
+
+  fetchUserBeer () {
+    $.ajax({
+      type: 'GET',      
+      url: '/user', 
+      data: {user: this.state.user},
+      dataType: 'json',
+      success: (data) => {
+        console.log('Sucessiful Fetch User Beer Data');
+        console.log(data);
+        this.setState({
+          userBeers: data
+        });
+      },
+      error: (err) => {
+        console.error('Fetch User Beer Data Failed ', err);
+      }
+    });  
   }
 
   render () {
@@ -97,6 +115,9 @@ class App extends React.Component {
       <div className="col-md-12 form-inline">      
         <RateBeer loggedIn={this.state.loggedIn} handleRateBeer={this.handleRateBeer}/>
       </div>
+      <div className="col-md-12">
+        <UserBeerList loggedIn={this.state.loggedIn} userBeers={this.state.userBeers}/>
+      </div>      
     </div>);
   }
 }
