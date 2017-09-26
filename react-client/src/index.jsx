@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
-import List from './components/List.jsx';
+import RateBeer from './components/RateBeer.jsx';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -68,6 +69,7 @@ class App extends React.Component {
       <h1>Rate My Beer</h1>
       <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
       <Logout loggedIn={this.state.loggedIn} user={this.state.user} handleLogout={this.handleLogout} />
+      <RateBeer loggedIn={this.state.loggedIn}/>
     </div>);
   }
 }
