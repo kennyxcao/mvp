@@ -9,10 +9,10 @@ const TopBeerList = (props) => (
         <input type="radio" value="avgRating" id="best-rated"/> Best Rated
       </label>
       <label className="btn btn-primary" onClick={props.handleTopBeerFetch}>
-        <input type="radio" value="count" id="most-rated" onClick={props.handleTopBeerFetch}/> Most Rated
+        <input type="radio" value="count" id="most-rated"/> Most Rated
       </label>
       <label className="btn btn-primary" onClick={props.handleTopBeerFetch}>
-        <input type="radio" value="created" id="newest" onClick={props.handleTopBeerFetch}/> Newest
+        <input type="radio" value="created" id="newest"/> Newest
       </label>    
     </div>
     <table className="table table-hover top-beer">

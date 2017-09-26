@@ -57,7 +57,6 @@ class RateBeer extends React.Component {
       dataType: 'json',
       success: (data) => {
         console.log('Sucessiful Fetch Beer Data');
-        console.log(data);
         if (data.length === 0) {
           this.setState({noResult: true});
         } else {

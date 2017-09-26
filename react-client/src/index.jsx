@@ -38,7 +38,6 @@ class App extends React.Component {
       dataType: 'json',
       success: (data) => {
         console.log('Sucessiful Fetch Top Beer Data');
-        console.log(data);
         this.setState({
           topBeers: data
         });
@@ -50,7 +49,6 @@ class App extends React.Component {
   }
 
   handleLogin (info) {
-    console.log(info);
     $.ajax({
       type: 'POST',
       url: '/login', 
@@ -74,13 +72,13 @@ class App extends React.Component {
   handleLogout (e) {
     this.setState({
       user: '',
+      userBeers: [],
       loggedIn: false
     });
   }
 
   handleRateBeer (info) {
     info['user'] = this.state.user;
-    console.log(info);
     $.ajax({
       type: 'POST',      
       url: '/beer', 
@@ -117,7 +115,16 @@ class App extends React.Component {
 
   render () {
     return (<div className='.container-fluid'>
-      <h1>Rate My Beer</h1>
+      <nav className="navbar navbar-default bg-faded">
+        <a className="navbar-brand" href="#">
+          <img alt="Brand" src="./assets/logo.jpg" />
+        </a>
+        <h1 id="title-app" className="navbar-brand">Rate My Beer</h1>
+        <form className="navbar-form navbar-right">
+          <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
+        <button className="btn btn-default my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </nav>
       <div className="col-md-12">
         <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
       </div>
