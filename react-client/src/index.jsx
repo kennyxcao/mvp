@@ -13,7 +13,7 @@ class App extends React.Component {
       items: []
     };
 
-    this.login = this.login.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   componentDidMount() {
@@ -30,8 +30,8 @@ class App extends React.Component {
     // });
   }
 
-  login (info) {
-
+  handleLogin (data) {
+    console.log(data);
   }
 
 
@@ -39,7 +39,7 @@ class App extends React.Component {
   render () {
     return (<div className='.container-fluid'>
       <h1>Rate My Beer <small>App</small></h1>
-      <Login loggedIn={this.state.loggedIn}/>
+      <Login loggedIn={this.state.loggedIn} handleLogin={this.handleLogin}/>
     </div>);
   }
 }

@@ -2,29 +2,32 @@ var userSamples = [
   {
     name: 'kenny',
     pw: 'kenny',
-    beerList: [{
-      beerID: '1',
-      rating: 9,
-      comment: 'Great Beer'
-    }]
+    // beerList: [{
+    //   beerID: '1',
+    //   rating: 9,
+    //   comment: 'Great Beer'
+    // }],
+    // friends: ['2', '3']
   },
   {
     name: 'james',
     pw: '123',
-    beerList: [{
-      beerID: '1',
-      rating: 9,
-      comment: 'Nice Beer'
-    }]
+    // beerList: [{
+    //   beerID: '1',
+    //   rating: 9,
+    //   comment: 'Nice Beer'
+    // }],
+    // friends: ['1', '3']
   },
   {
     name: 'john',
     pw: '456',
-    beerList: [{
-      beerID: '1',
-      rating: 5,
-      comment: 'Bad Beer'
-    }]
+    // beerList: [{
+    //   beerID: '1',
+    //   rating: 5,
+    //   comment: 'Bad Beer'
+    // }],
+    // friends: ['1', '2']
   },  
 ];
 
