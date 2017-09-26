@@ -32,6 +32,7 @@ let userSchema = mongoose.Schema({
   beerList: [{
     beerID: ObjectId,
     rating: Number,
+    location: String,
     comment: String
   }],
   friends: [ObjectId],
