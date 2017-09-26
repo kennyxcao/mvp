@@ -13,7 +13,7 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 app.use('/js', express.static(__dirname + '/../node_modules/bootstrap/dist/js'));  // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/../node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/../node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
-app.use('/css', express.static(__dirname + '/../react-client/dist/css'));
+app.use('/css', express.static(__dirname + '/../react-client/dist/css')); // redirect custom css file
 
 
 app.post('/login', (req, res) => {
@@ -30,6 +30,10 @@ app.get('/user', (req, res) => {
 
 });
 
+app.post('/user', (req, res) => {
+
+});
+
 
 app.get('/beer', (req, res) => {
 
@@ -37,9 +41,40 @@ app.get('/beer', (req, res) => {
 
 
 app.post('/beer', (req, res) => {
+  console.log(req.body);
+  const data = req.body;
+  ba.beerSearch(data.name, (beers) => {
+    beers = JSON.parse(beers);
+    if (beers.length === 0) { return res.status(404).json(null); }
+    let beer = beers[0];
+    console.log(beer);
 
+    db.Beer.findOne({name: beer.beer_name, brewery: beer.brewery_name}).exec()
+      .then(result => {
+        if (!result) {
+          throw result;
+        }
+        let newAvgRating = (result.avgRating * result.count + data.rating) / (result.count + 1);
+        let newCount = result.count++;
+        return db.Beer.update({name: beer.beer_name, brewery: beer.brewery_name}, { $set: { avgRating: newAvgRating, count: newCount}}).exec();
+      })
+      .catch(result => {
+        console.log('*********** CATCH **********');
+        ba.beerPage(beer.beer_url, (beerDetail) => {
+          beerDetail = JSON.parse(beerDetail);
+          console.log(beerDetail);
+          db.Beer.create({
+            name: beer.beer_name,
+            brewery: beer.brewery_name,
+            location: beer.brewery_location,
+            style: beerDetail.beer_sytle,
+            avgRating: data.rating || 5,
+            count: 1
+          });
+        });
+      });
+  });
 });
-
 
 
 

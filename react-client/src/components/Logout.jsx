@@ -5,7 +5,7 @@ const Logout = (props) => (
     {!props.loggedIn ? null : 
       <div className='logout'>
         <h4>Welcome Back {props.user}!</h4>
-        <button type="button" onClick={props.handleLogout}>Logout</button> 
+        <button type="button" className="btn btn-primary" onClick={props.handleLogout}>Logout</button> 
       </div>
     }
   </div>

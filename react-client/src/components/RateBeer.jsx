@@ -4,14 +4,15 @@ class RateBeer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      beername: '',
       location: '',
-      rating: '',
+      rating: '',    
       comment: ''
     };
-    this.fetchBeerData = this.fetchBeerData.bind(this);
+    this.getBeerData = this.getBeerData.bind(this);
     this.handleBeernameChange = this.handleBeernameChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleRatingChange = this.handleRatingChange.bind(this);
     this.handleCommentChange = this.handleCommentChange.bind(this);
   }
 
@@ -31,9 +32,13 @@ class RateBeer extends React.Component {
     this.setState({comment: e.target.value});
   }
 
-  fetchBeerData (e) {
-
-    // this.props.handleLogin({name: this.state.username, pw: this.state.pw});
+  getBeerData (e) {
+    this.props.handleRateBeer({
+      name: this.state.beername, 
+      location: this.state.location, 
+      rating: this.state.rating, 
+      comment: this.state.comment}
+    );
   }
 
   render() {
@@ -43,15 +48,23 @@ class RateBeer extends React.Component {
         <div className='ratebeer'>
           <h4>Rate a Beer</h4>
           <form>
-            <label htmlFor="beername">Beer Name:</label>
-            <input id="beername" type="text" value={this.state.beername} onChange={this.handleBeernameChange} />
-            <label htmlFor="location">Location:</label>
-            <input id="location" type="text" value={this.state.location} onChange={this.handleLocationChange} />
-            <label htmlFor="rating">Rating:</label>
-            <input id="rating" type="text" value={this.state.rating} onChange={this.handleRatingChange} />
-            <label htmlFor="comment">Comment:</label>
-            <input id="comment" type="text" value={this.state.comment} onChange={this.handleCommentChange} />
-            <button type="button" onClick={this.fetchBeerData}>Submit</button>
+            <div className="form-group">
+              <label htmlFor="beername">Beer Name:</label>
+              <input id="beername" className="form-control" type="text" value={this.state.beername} onChange={this.handleBeernameChange} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="location">Location:</label>
+              <input id="location" className="form-control" type="text" value={this.state.location} onChange={this.handleLocationChange} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="rating">Rating:</label>
+              <input id="rating" className="form-control" type="number" min="0" max="10" step="0.5" value={this.state.rating} onChange={this.handleRatingChange} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="comment">Comment:</label>
+              <input id="comment" className="form-control" type="text" value={this.state.comment} onChange={this.handleCommentChange} />
+            </div>
+            <button type="button" className="btn btn-primary" onClick={this.getBeerData}>Submit</button>
           </form>
         </div>
       }
@@ -64,6 +77,7 @@ class RateBeer extends React.Component {
 // Warnings will be shown in the console when the defined rules are violated
 RateBeer.propTypes = {
   loggedIn: React.PropTypes.bool.isRequired,
+  handleRateBeer: React.PropTypes.func.isRequired,
 };
 
 
