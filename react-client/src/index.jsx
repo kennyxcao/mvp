@@ -30,11 +30,11 @@ class App extends React.Component {
   }
 
   handleTopBeerFetch (e) {
-    //console.log(e.target.value);
+    let sortBy = e ? $(e.target).find('input').val() : 'avgRating';
     $.ajax({
       type: 'GET',      
       url: '/topbeer', 
-      data: {sortBy: 'avgRating'},
+      data: {sortBy},
       dataType: 'json',
       success: (data) => {
         console.log('Sucessiful Fetch Top Beer Data');

@@ -4,7 +4,17 @@ import TopBeerListItem from './TopBeerListItem.jsx';
 const TopBeerList = (props) => (
   <div className='topBeerList'>
     <h4>Top 25 Beer</h4>  
-
+    <div className="btn-group sort-select" data-toggle="buttons">
+      <label className="btn btn-primary" onClick={props.handleTopBeerFetch}>
+        <input type="radio" value="avgRating" id="best-rated"/> Best Rated
+      </label>
+      <label className="btn btn-primary" onClick={props.handleTopBeerFetch}>
+        <input type="radio" value="count" id="most-rated" onClick={props.handleTopBeerFetch}/> Most Rated
+      </label>
+      <label className="btn btn-primary" onClick={props.handleTopBeerFetch}>
+        <input type="radio" value="created" id="newest" onClick={props.handleTopBeerFetch}/> Newest
+      </label>    
+    </div>
     <table className="table table-hover top-beer">
       <thead className="thead-default">
         <tr>
