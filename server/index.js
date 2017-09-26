@@ -48,40 +48,89 @@ app.get('/beer', (req, res) => {
 
 app.post('/beer', (req, res) => {
   console.log(req.body);
-  const data = req.body;
-  ba.beerSearch(data.name, (beers) => {
-    beers = JSON.parse(beers);
-    if (beers.length === 0) { return res.status(404).json(null); }
-    let beer = beers[0];
-    console.log(beer);
+  const beer = req.body;
 
-    db.Beer.findOne({name: beer.beer_name, brewery: beer.brewery_name}).exec()
-      .then(result => {
-        if (!result) {
-          throw result;
-        }
-        let newAvgRating = (result.avgRating * result.count + +data.rating) / (result.count + 1);
-        let newCount = result.count++;
-        return db.Beer.update({name: beer.beer_name, brewery: beer.brewery_name}, { $set: { avgRating: newAvgRating, count: newCount}}).exec();
-      })
-      .catch(result => {
-        console.log('*********** CATCH **********');
-        ba.beerPage(beer.beer_url, (beerDetail) => {
-          beerDetail = JSON.parse(beerDetail);
-          console.log(beerDetail);
-          db.Beer.create({
-            name: beer.beer_name,
-            brewery: beer.brewery_name,
-            location: beer.brewery_location,
-            style: beerDetail.beer_sytle,
-            avgRating: data.rating || 5,
-            count: 1
+  db.Beer.findOne({name: beer.name, brewery: beer.brewery}).exec()
+    .then(result => {
+      if (!result) {
+        throw result;
+      }
+
+      let newBeer = {
+        beerID: result._id, 
+        beername: result.name, 
+        brewery: result.brewery, 
+        breweryLocation: result.location,
+        beerURL: result.beerURL,
+        style: result.style,
+        rating: +beer.rating,
+        location: beer.location,
+        comment: beer.comment,
+        updatedAt: Date.now()
+      };
+
+      let newAvgRating = (result.avgRating * result.count + +beer.rating) / (result.count + 1);
+      console.log(newAvgRating);
+      let newCount = ++result.count;
+      
+      db.Beer.update({_id: result._id}, {avgRating: newAvgRating, count: newCount, updated: Date.now()}).exec()
+        .then(beerUpdateResult => {
+          console.log('Existing Beer Updated');
+          console.log(beerUpdateResult);
+
+          return db.User.findOneAndUpdate({name: beer.user}, {$push: {beerList: newBeer}}).exec();
+        })
+        .then(userUpdateResult => {
+          res.status(201).send();
+        })
+        .catch(error => {
+          console.error(error);
+        });    
+    })
+    .catch(result => {
+      console.log('*********** CATCH - FETCHING BEER DETAILS**********');
+      ba.beerPage(beer.beerURL, (beerDetail) => {
+        beerDetail = JSON.parse(beerDetail);
+        console.log(beerDetail);
+
+        db.Beer.create({
+          name: beer.name,
+          brewery: beer.brewery,
+          beerURL: beer.beerURL,
+          location: beer.breweryLocation,
+          style: beerDetail.beer_sytle,
+          avgRating: +beer.rating || 5,
+          count: 1
+        })
+          .then(result => {
+            console.log('New Beer Created');
+            console.log(result);
+            const newBeer = {
+              beerID: result._id, 
+              beername: result.name, 
+              brewery: result.brewery, 
+              breweryLocation: result.location,
+              beerURL: result.beerURL,
+              style: result.style,
+              rating: +beer.rating,
+              location: beer.location,
+              comment: beer.comment,
+              updatedAt: Date.now()
+            };
+            return db.User.findOneAndUpdate({name: beer.user}, {$push: {beerList: newBeer}}).exec();
+          })
+          .then(updateResult => {
+            res.status(201).send();
+          })
+          .catch(error => {
+            console.error(error);
           });
-        });
       });
-  });
+    })
+    .error(error => {
+      console.error(error);
+    });
 });
-
 
 
 app.get('/items', (req, res) => {

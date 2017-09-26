@@ -60,16 +60,20 @@ class RateBeer extends React.Component {
         console.error('Fetch Beer Data Failed ', err);
       }
     });     
-    // this.props.handleRateBeer({
-    //   name: this.state.beername, 
-    //   location: this.state.location, 
-    //   rating: this.state.rating, 
-    //   comment: this.state.comment}
-    // );
   }
 
   handleSelectBeer (e) {
     console.log(e.target.value);
+    const selectedBeer = this.state.beerList[e.target.value];
+    this.props.handleRateBeer({
+      name: selectedBeer.beer_name,
+      brewery: selectedBeer.brewery_name,
+      breweryLocation: selectedBeer.brewery_location, 
+      beerURL: selectedBeer.beer_url,
+      location: this.state.location, 
+      rating: this.state.rating, 
+      comment: this.state.comment}
+    );
   }
 
   render() {

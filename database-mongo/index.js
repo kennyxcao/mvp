@@ -31,9 +31,18 @@ let userSchema = mongoose.Schema({
   },
   beerList: [{
     beerID: ObjectId,
+    beername: String,
+    brewery: String,
+    breweryLocation: String,
+    beerURL: String,
+    style: String,
     rating: Number,
     location: String,
-    comment: String
+    comment: String,
+    updatedAt: { 
+      type: Date, 
+      default: Date.now 
+    }
   }],
   friends: [ObjectId],
   created: { 

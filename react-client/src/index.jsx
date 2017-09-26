@@ -70,18 +70,17 @@ class App extends React.Component {
       type: 'POST',      
       url: '/beer', 
       data: JSON.stringify(info),
-      dataType: 'json',
       contentType: 'application/json',
       success: (data) => {
-        console.log('Sucessiful Fetch Beer Data');
+        console.log('Sucessiful Submit Beer Data');
         console.log(data);
-        this.setState({
-          fetched: true,
-          beerChoices: data
-        });
+        // this.setState({
+        //   fetched: true,
+        //   beerChoices: data
+        // });
       },
       error: (err) => {
-        console.error('Fetch Beer Data Failed ', err);
+        console.error('Submit Beer Data Failed ', err);
       }
     }); 
   }
