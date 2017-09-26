@@ -6,12 +6,12 @@ var items = require('../database-mongo');
 
 var app = express();
 
-// UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
+app.use('/js', express.static(__dirname + '/../node_modules/bootstrap/dist/js'));  // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/../node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/css', express.static(__dirname + '/../node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+app.use('/css', express.static(__dirname + '/../react-client/dist/css'));
 
-// UNCOMMENT FOR ANGULAR
-// app.use(express.static(__dirname + '/../angular-client'));
-// app.use(express.static(__dirname + '/../node_modules'));
 
 app.get('/items', function (req, res) {
   ba.beerPage('/beer/profile/16333/54413/', function(beers) {

@@ -1,6 +1,8 @@
+const data = require('./data.js');
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
 mongoose.Promise = require('bluebird');
+
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
@@ -16,6 +18,7 @@ db.on('error', function() {
 db.once('open', function() {
   console.log('mongoose connected successfully');
 });
+
 
 let userSchema = mongoose.Schema({
   name: {
@@ -40,14 +43,30 @@ let userSchema = mongoose.Schema({
 
 let User = mongoose.model('User', userSchema);
 
+// data.userSamples.forEach(function(user) {
+//   var newUser = new User({
+//     name: user.name,
+//     pw: user.pw,
+//     beerList: user.beerList,
+//     friends: user.friends
+//   }).save(function(err) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log('user saved');
+//     }
+//   });
+// });
+
 
 let beerSchema = mongoose.Schema({
   name: String,
   brewery: String,
   beerURL: String,
   location: String,
-  type: String,
+  style: String,
   avgRating: Number,
+  abv: Number,
   count: Number,
   updated: { 
     type: Date, 
@@ -61,17 +80,37 @@ let beerSchema = mongoose.Schema({
 
 let Beer = mongoose.model('Beer', beerSchema);
 
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
-    if (err) {
-      callback(err, null);
-    } else {
-      callback(null, items);
-    }
-  });
-};
+// data.beerSamples.forEach(function(beer) {
+//   var newBeer = new Beer({
+//     name: beer.name,
+//     brewery: beer.brewery,
+//     beerURL: beer.beerURL,
+//     location: beer.location,
+//     style: beer.style,
+//     avgRating: beer.avgRating,
+//     abv: beer.abv,
+//     count: beer.count
+//   }).save(function(err) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log('beer saved');
+//     }
+//   });
+// });
 
-module.exports.selectAll = selectAll;
+
+// var selectAll = function(callback) {
+//   Item.find({}, function(err, items) {
+//     if (err) {
+//       callback(err, null);
+//     } else {
+//       callback(null, items);
+//     }
+//   });
+// };
+
+// module.exports.selectAll = selectAll;
 
 module.exports.db = db;
 module.exports.User = User;
