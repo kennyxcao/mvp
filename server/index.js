@@ -11,12 +11,12 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + '/../react-client'));
 app.use('/js', express.static(__dirname + '/../node_modules/bootstrap/dist/js'));  // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/../node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/js', express.static(__dirname + '/../node_modules/moment')); // redirect JS Moment
 app.use('/css', express.static(__dirname + '/../node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
-app.use('/css', express.static(__dirname + '/../react-client/dist/css')); // redirect custom css file
+app.use('/css', express.static(__dirname + '/../react-client/css')); // redirect custom css file
 
 app.post('/login', (req, res) => {
   // Check user login data with User collection

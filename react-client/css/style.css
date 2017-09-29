@@ -1,0 +1,57 @@
+@import url("http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
+
+#username {
+
+}
+
+#password {
+
+}
+
+div.login label{
+  margin-left: 20px;
+  margin-right: 5px;
+}
+
+div.ratebeer label {
+  margin-left: 20px;
+  margin-right: 5px;  
+}
+
+div.logout {
+  display: inline-block;
+}
+
+form button {
+  margin-left: 20px;  
+}
+
+h1 {
+  margin: 20px;
+}
+
+.notFound {
+  color: red;
+}
+
+.user-beer thead th {
+  background-color: #29773a;
+  color: white;
+}
+
+.top-beer thead th {
+  background-color: #b24e4e;
+  color: white;
+}
+
+.sort-select .btn{
+  margin-right: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+#title-app {
+  font-size: 30px;
+  font-weight: bold;
+  color: darkred;
+}
